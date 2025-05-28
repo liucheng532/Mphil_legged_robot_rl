@@ -1,0 +1,7 @@
+{
+    "python.analysis.extraPaths": [
+        "./unitree_sdk2_python",
+        "./IsaacGym_Preview_4_Package/isaacgym/python",
+        "./rsl_rl"
+    ]
+}
