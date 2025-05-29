@@ -8,7 +8,7 @@ from .base_config import BaseConfig
 class LeggedRobotCfg(BaseConfig):
     class env:
         #强化学习环境中，同时训练智能体的数量，观测量。
-        num_envs = 524
+        num_envs = 2048
         # 强化学习观测值的数量
         num_observations = 48
         num_privileged_obs = None # if not None a priviledge_obs_buf will be returned by step() (critic obs for assymetric training). None is returned otherwise 
@@ -36,8 +36,8 @@ class LeggedRobotCfg(BaseConfig):
         # 生成局部地形边界的大小
         border_size = 25 # [m]
         # 是否使用课程，课程的含义是，当机器人在当前环境下，运行情况较好后，增加地形的难度
-        curriculum = True
-
+        # curriculum = True
+        curriculum = False
         
         # 静摩擦
         static_friction = 1.0
@@ -54,9 +54,16 @@ class LeggedRobotCfg(BaseConfig):
         measured_points_x = [-0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2, -0.1, 0., 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8] # 1mx1.6m rectangle (without center line)
         measured_points_y = [-0.5, -0.4, -0.3, -0.2, -0.1, 0., 0.1, 0.2, 0.3, 0.4, 0.5]
         # 是否选择一个单一的独特地形
-        selected = False # select a unique terrain type and pass all arguments
+        # selected = False # select a unique terrain type and pass all arguments
+        selected = True
         # 选择地形的字典值，即名称
         terrain_kwargs = None # Dict of arguments for selected terrain
+        # terrain_kwargs = {'random':'random_uniform_terrain'} 
+            # Dict of arguments for selected terrain
+            # random_uniform_terrain(), sloped_terrain(), pyramid_sloped_terrain(), 
+            # discrete_obstacles_terrain(), wave_terrain(), stairs_terrain(), 
+            # pyramid_stairs_terrain(), and stepping_stones_terrain()
+
         # 初始化地形的状态等级
         max_init_terrain_level = 5 # starting curriculum state
         terrain_length = 8.
@@ -324,7 +331,7 @@ class LeggedRobotCfgPPO(BaseConfig):
         # 每次迭代单个机器人的步长
         num_steps_per_env = 24 # per iteration
         # 策略训练次数
-        max_iterations = 1500 # number of policy updates
+        max_iterations = 5000 # number of policy updates
 
         # logging
         # 存储训练模型的间隔，每50次存储一个模型

@@ -1,6 +1,6 @@
 from legged_gym.envs.base.legged_robot_config import LeggedRobotCfg, LeggedRobotCfgPPO
 
-class G1RoughCfg( LeggedRobotCfg ):
+class G1RandomTerrainRoughCfg( LeggedRobotCfg ):
     class init_state( LeggedRobotCfg.init_state ):
         pos = [0.0, 0.0, 0.8] # x,y,z [m]
         default_joint_angles = { # = target angles [rad] when action = 0.0
@@ -20,8 +20,8 @@ class G1RoughCfg( LeggedRobotCfg ):
         }
     
     #这里自定义一下g1 这个任务的terrain设置
-    #  class terrain( LeggedRobotCfg.env ):
-
+    class terrain( LeggedRobotCfg.env ):
+        mesh_type = 'trimesh'
 
     class env(LeggedRobotCfg.env):
         num_observations = 47
@@ -92,7 +92,7 @@ class G1RoughCfg( LeggedRobotCfg ):
             feet_swing_height = -20.0
             contact = 0.18
 
-class G1RoughCfgPPO( LeggedRobotCfgPPO ):
+class G1RandomTerrainRoughCfgPPO( LeggedRobotCfgPPO ):
     class policy:
         init_noise_std = 0.8
         actor_hidden_dims = [32]
@@ -107,8 +107,8 @@ class G1RoughCfgPPO( LeggedRobotCfgPPO ):
         entropy_coef = 0.01
     class runner( LeggedRobotCfgPPO.runner ):
         policy_class_name = "ActorCriticRecurrent"
-        max_iterations = 10000   #原来是10000
+        max_iterations = 5000   #原来是10000
         run_name = ''
-        experiment_name = 'g1'
+        experiment_name = 'g1_random_terrain'
 
   
